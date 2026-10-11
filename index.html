@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rizal Quiz: Chapters 1 and 2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap">
+<style>
+:root{--bg:#F3F5F9;--card:#fff;--ink:#16223B;--mute:#5A6479;--line:#D5DAE4;--red:#C21F3A;--ok:#1F7A4D;--okbg:#E2F3EA;--badbg:#FBE4E8;--gold:#E0A526;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F172A;--card:#18233D;--ink:#EEF1F7;--mute:#9AA6BF;--line:#2C3A5B;--red:#F0627A;--ok:#5FD39A;--okbg:#143A2B;--badbg:#44202A}}
+:root[data-theme="dark"]{--bg:#0F172A;--card:#18233D;--ink:#EEF1F7;--mute:#9AA6BF;--line:#2C3A5B;--red:#F0627A;--ok:#5FD39A;--okbg:#143A2B;--badbg:#44202A}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+main{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+h1{font:700 26px/1.25 "Libre Baskerville",Georgia,serif;margin:8px 0 6px}
+.sub{color:var(--mute);margin:0 0 20px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:14px;margin-bottom:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+.q{font:700 19px/1.4 "Libre Baskerville",Georgia,serif;margin:0 0 16px}
+.opt{display:block;width:100%;text-align:left;padding:12px 14px;margin:0 0 10px;background:var(--card);color:var(--ink);border:1.5px solid var(--line);border-radius:8px;font:inherit;cursor:pointer}
+.opt:hover:enabled{border-color:var(--red)}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--red)}
+.opt:disabled{cursor:default}
+.fb{margin:14px 0 0;padding:12px 14px;border-left:4px solid var(--ok);background:var(--okbg);border-radius:4px}
+.fb.bad{border-color:var(--red);background:var(--badbg)}
+.fb b{display:block;margin-bottom:2px}
+.btn{margin-top:16px;padding:12px 22px;background:var(--red);color:#fff;border:0;border-radius:8px;font:600 16px system-ui,sans-serif;cursor:pointer}
+.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--line);margin-left:8px}
+.score{font:700 52px/1 "Libre Baskerville",Georgia,serif;margin:4px 0 8px}
+.rev{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:8px}
+.rev p{margin:2px 0}
+.hide{display:none}
+</style>
+</head>
+<body>
+<main>
+<h1>Rizal Long Quiz: Chapters 1 and 2</h1>
+<p class="sub">Rizal Law and the 19th century. Questions and choices are shuffled. Tap an answer to check it right away.</p>
+<div id="app"></div>
+</main>
+<script>
+const RAW=[
+["The Rizal Bill became a law in which year?","1956",["1946","1966","1896"],"The Rizal Law was enacted on June 12, 1956 (Flag Day)."],
+["What is the number of the Rizal Law?","RA 1425",["RA 229","RA 1761","RA 247"],"RA 1425 is the Rizal Law. RA 229 is the related law about Rizal Day."],
+["Which novels does the Rizal Law especially require students to read?","Noli Me Tangere and El Filibusterismo",["Mi Ultimo Adios and Sa Aking Mga Kabata","Florante at Laura and Ibong Adarna","Noli Me Tangere and Mi Ultimo Adios"],"The law focuses on Rizal's two novels."],
+["Who was the main proponent of the Rizal Bill?","Claro M. Recto",["Jose P. Laurel","Fidel V. Ramos","Carlos Maria de la Torre"],"Sen. Recto pushed the bill despite being called communist and anti-Catholic."],
+["Who strongly opposed the Rizal Bill and threatened to close schools?","The Catholic Church and schools",["The military","Chinese merchants","The Spanish friars of 1896"],"The Church and Catholic schools opposed it."],
+["What was Recto's reply to the threat of closing schools?","Schools would be nationalized",["The law would be withdrawn","Only public schools would teach it","The novels would be shortened"],"He said closed schools would be nationalized."],
+["Which versions of the novels did Recto insist on?","Unexpurgated versions",["Abridged versions","Translated-only versions","Illustrated versions"],"Unexpurgated means complete and uncensored."],
+["What did the compromise clause of the law allow?","Exemption for students whose faith would be harmed",["Skipping the course entirely","Reading only one novel","Teaching it only in college"],"Students who believed the novels would harm their faith could be exempted."],
+["Which is NOT a requirement of RA 1425?","Teaching Rizal only in private schools",["Students read Rizal's novels","Schools keep enough library copies","Publishing Rizal's works in major Philippine languages"],"It applies to all schools, not only private ones."],
+["Who emphasized Rizal as the founder of nationalism?","Jose P. Laurel",["Claro M. Recto","Fidel V. Ramos","Jose Basco"],"Sen. Laurel stressed Rizal's role as the founder of nationalism."],
+["In what year did Pres. Ramos order strict implementation (Memo Order No. 247)?","1994",["1956","1995","1987"],"It was reinforced by CHED Memo No. 3 in 1995."],
+["What does RA 229 ban on December 30?","Cockfighting, horse racing, and jai-alai",["All public gatherings","Fishing and hunting","Trading and markets"],"The ban honors Rizal's memory on Rizal Day."],
+["Why should we study Rizal? Which is NOT one of the reasons?","To memorize only his birthday",["Insight into current problems","Understanding ourselves as Filipinos","Developing critical thinking"],"Studying Rizal builds understanding, nationalism, life lessons, and critical thinking."],
+["Who was Rizal's first love?","Segunda Katigbak",["Josephine Bracken","Leonor Rivera","Nellie Boustead"],"The slides name Segunda Katigbak."],
+["Who was Rizal's common-law wife?","Josephine Bracken",["Segunda Katigbak","Leonor Rivera","Gertrude Beckett"],"He met her in Dapitan."],
+["How many languages could Rizal speak and write?","More than 20",["About 5","Exactly 10","Only 3"],"Including Spanish, German, French, and Japanese."],
+["What was Rizal's profession?","Ophthalmologist (eye doctor)",["Lawyer","Architect","Priest"],"He was a doctor of ophthalmology."],
+["What was Rizal's last poem before his death?","Mi Ultimo Adios",["Sa Aking Mga Kabata","A La Juventud Filipina","Kundiman"],"Mi Ultimo Adios (My Last Farewell) is about love for country."],
+["Where and when was Rizal executed?","Bagumbayan, December 30, 1896",["Fort Santiago, June 12, 1898","Dapitan, December 30, 1892","Cavite, August 1896"],"Bagumbayan is now Luneta/Rizal Park."],
+["Which sports did Rizal enjoy?","Fencing and chess",["Boxing and basketball","Swimming and football","Tennis and golf"],"He loved fencing and chess."],
+["What does the term modernity emphasize?","A break from traditional ways of life",["Return to old customs","Rule by kings","Isolation from trade"],"It marks new ideas, attitudes, and institutions."],
+["The American and French Revolutions were heavily influenced by what?","The Enlightenment",["The Galleon Trade","The Bourbon Reforms","The Suez Canal"],"The Enlightenment valued reason, rationality, and individualism."],
+["When did the Manila-Acapulco Galleon Trade begin?","1565",["1815","1869","1782"],"Manila's ports were closed to all countries except Mexico."],
+["Which was brought from Mexico to the Philippines?","Pineapple",["Carabao","Tamarind","Fireworks"],"Mexico sent guava, avocado, papaya, pineapple, horses, and cattle."],
+["Which was sent from the Philippines to Mexico?","Tamarind",["Horses","Guava","Cattle"],"The Philippines sent mango, tamarind, rice, carabao, and more."],
+["Where were the Chinese confined by Spanish authorities?","The Parian",["Intramuros","Binondo only","Cavite"],"The Spanish feared the growing Chinese population."],
+["Why did the Galleon Trade end in 1815?","Mexico's war of independence",["The Suez Canal opened","The Cadiz Constitution","Chinese massacres"],"It ended on September 14, 1815."],
+["Where was the Philippines governed from at first?","Mexico",["Madrid","Manila","Cadiz"],"Later, Spain governed it directly from Madrid."],
+["Who led the building of the Suez Canal (1859-1869)?","Ferdinand de Lesseps",["Jose Basco","Charles III","Manuel Gonzalez Aguilar"],"The Suez Canal Company built it."],
+["When did the Suez Canal officially open?","November 17, 1869",["September 14, 1815","June 12, 1956","November 17, 1859"],"Construction ran from 1859 to 1869."],
+["Which seas did the Suez Canal connect?","Mediterranean and Red Sea",["Red Sea and Pacific","Atlantic and Pacific","Black Sea and Mediterranean"],"It shortened routes to Asia."],
+["How long did Barcelona to Manila take after Suez opened?","32 to 40 days",["Over 3 months","About 1 year","About 1 week"],"Before, it took over 3 months via the Cape of Good Hope."],
+["How did Suez influence Rizal and the ilustrados?","Liberal books and ideas reached the Philippines more easily",["It banned foreign newspapers","It ended education abroad","It closed Manila's ports"],"It also encouraged Filipinos to study abroad."],
+["Which are the major 19th-century export crops?","Sugar, abaca, coffee, tobacco",["Rice, corn, wheat, cotton","Mango, guava, papaya, pineapple","Tea, silk, spices, rubber"],"These crops tied the Philippines to world trade."],
+["Which export crop was grown in southeastern Luzon?","Hemp (abaca)",["Sugar","Tobacco","Coffee"],"Western Visayas grew sugar. Northeastern Luzon grew tobacco."],
+["Who organized and financed much of the export trade?","North European and North American merchants",["Spanish friars","Filipino inquilinos","Mexican traders"],"Manila was the central hub."],
+["The opium monopoly was legalized in the 1840s and restricted to whom?","Chinese residents",["Filipinos","Spaniards","Friars"],"Chinese traders also controlled it."],
+["After what year were monopoly contracts opened to foreigners?","1850",["1782","1869","1882"],"Chinese merchants dominated monopoly contracting."],
+["Who established the tobacco monopoly in 1782?","Jose Basco",["Carlos Maria de la Torre","Ferdinand de Lesseps","Manuel Gonzalez Aguilar"],"It was abolished in 1882."],
+["Which law banned non-medical opium use in 1907?","Act No. 1761",["RA 1425","RA 229","Act No. 1903"],"The monopoly was fully abolished by 1908."],
+["The Chinese-Filipino and Spanish mestizo middle class produced whom?","The ilustrados",["The inquilinos","The friars","The governors-general"],"They could send their children to Spain for education."],
+["What is the inquilino system?","Tenancy where land is used in exchange for rent",["Forced labor for the government","A tax on tobacco","Communal land ownership"],"Friar estates adopted it."],
+["Inquilinos sub-leased land to whom?","Sharecroppers (kasamas)",["Administrators","Estate owners","Merchants"],"Sharecroppers suffered the most abuses."],
+["What is the correct hacienda hierarchy?","Estate owner, administrator, inquilino, sharecropper",["Estate owner, inquilino, administrator, sharecropper","Administrator, owner, sharecropper, inquilino","Inquilino, owner, administrator, sharecropper"],"The sharecropper is at the bottom."],
+["Liberalism is a worldview based on what?","Freedom and equality",["Obedience to the Church","Rule by the king","Free trade only"],"It emphasizes individual rights and equal opportunity."],
+["During which years did the French Revolution take place?","1789-1799",["1812-1814","1859-1869","1869-1871"],"It inspired liberal movements in Spain."],
+["Which philosophers' ideas reached the Philippines through Suez?","Rousseau, Locke, Paine, Jefferson",["Marx, Engels, Lenin, Mao","Plato, Aristotle, Socrates, Kant","Darwin, Newton, Galileo, Freud"],"Ilustrados were shaped by these liberal ideas."],
+["Which was NOT an achievement of Gov. Gen. Carlos Maria de la Torre?","Establishing the tobacco monopoly",["Abolishing censorship","Promoting freedom of speech and press","Peacefully solving Cavite's agrarian problems"],"He served 1869-1871 and was the most beloved Spanish governor."],
+["Why did the Bourbon Reforms have limited impact in the Philippines?","Distance and inconsistent implementation",["The friars supported them","Mexico rejected them","They were never proposed"],"They were stronger in Mexico."],
+["What made the Cadiz Constitution (1812) unique in Europe?","First to declare sovereignty comes from the people, not the king",["It abolished the monarchy","It created a republic","It ended the galleon trade"],"It was created during the Napoleonic occupation of Spain."],
+["Who were the Filipino delegates to the Cadiz Cortes?","Pedro Perez de Tagle and Jose Manuel Coretto",["Jose Rizal and Marcelo del Pilar","Recto and Laurel","Basco and de la Torre"],"They took their oath in Madrid."],
+["Which governor-general oversaw the Cadiz elections in Manila?","Manuel Gonzalez Aguilar",["Jose Basco","Carlos Maria de la Torre","Fidel Ramos"],"Don Ventura de los Reyes signed the constitution."],
+["Who annulled the Cadiz Constitution in 1814?","King Ferdinand VII",["Charles III","Philip V","Charles IV"],"Its ideas of equality, liberty, and suffrage remained."],
+["What is sociological imagination?","Seeing personal life in relation to larger historical and social forces",["Writing fiction about society","Memorizing dates","Planning social events"],"Rizal understood the societal forces shaping his life."]
+];
+const Q=RAW.map(([q,c,w,e])=>({q,o:[c,...w],a:0,e}));
+const app=document.getElementById('app');
+let i=0,score=0,missed=[],order=[];
+function shuffle(a){a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+function start(){i=0;score=0;missed=[];order=shuffle(Q.map((_,k)=>k));show()}
+function show(){
+ const item=Q[order[i]];
+ const idx=shuffle(item.o.map((_,k)=>k));
+ app.innerHTML=`<div class="bar"><i style="width:${i/Q.length*100}%"></i></div>
+ <div class="meta"><span>Question ${i+1} of ${Q.length}</span><span>Score: ${score}</span></div>
+ <div class="card"><p class="q"></p><div id="opts"></div><div id="fb"></div><div id="nx"></div></div>`;
+ app.querySelector('.q').textContent=item.q;
+ const box=document.getElementById('opts');
+ idx.forEach(k=>{const b=document.createElement('button');b.className='opt';b.textContent=item.o[k];b.onclick=()=>answer(k,b,item,box);box.appendChild(b)});
+}
+function answer(k,btn,item,box){
+ const ok=k===item.a;
+ [...box.children].forEach(b=>{b.disabled=true;if(b.textContent===item.o[item.a])b.classList.add('right')});
+ if(ok){score++}else{btn.classList.add('wrong');missed.push({q:item.q,mine:item.o[k],right:item.o[item.a],e:item.e})}
+ const fb=document.getElementById('fb');
+ fb.innerHTML=`<div class="fb ${ok?'':'bad'}"><b>${ok?'Correct.':'Not quite.'}</b><span></span></div>`;
+ fb.querySelector('span').textContent=(ok?'':'Answer: '+item.o[item.a]+'. ')+item.e;
+ const last=i===Q.length-1;
+ const n=document.createElement('button');n.className='btn';n.textContent=last?'See results':'Next question';
+ n.onclick=()=>{i++;last?done():show()};
+ document.getElementById('nx').appendChild(n);n.focus();
+}
+function done(){
+ const pct=Math.round(score/Q.length*100);
+ const msg=pct>=90?'Excellent. You are ready.':pct>=70?'Solid. Review the misses below.':'Keep going. Review the misses and try again.';
+ app.innerHTML=`<div class="bar"><i style="width:100%"></i></div><div class="card"><p class="sub" style="margin:0">Your score</p><div class="score">${score} / ${Q.length}</div><p style="margin:0 0 4px"><b>${pct}%</b>. ${msg}</p><div id="rv"></div><button class="btn" id="again">Try again</button></div>`;
+ const rv=document.getElementById('rv');
+ if(missed.length){const h=document.createElement('p');h.innerHTML='<b>Review these:</b>';h.style.margin='16px 0 0';rv.appendChild(h)}
+ missed.forEach(m=>{const d=document.createElement('div');d.className='rev';
+  [['b',m.q],['p','You chose: '+m.mine],['p','Correct: '+m.right],['p',m.e]].forEach(([t,x])=>{const p=document.createElement(t==='b'?'p':'p');if(t==='b')p.style.fontWeight='700';p.textContent=x;d.appendChild(p)});
+  rv.appendChild(d)});
+ document.getElementById('again').onclick=start;
+}
+start();
+</script>
+</body>
+</html>
